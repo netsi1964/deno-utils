@@ -49,6 +49,8 @@ constructor(private matIconRegistry: MatIconRegistry,
 }
 ```
 
+You can see it used on [stackblits.com](https://stackblitz.com/edit/angular-fkpoqb?file=src/main.ts)
+
 Included svg deno logo found at [Deno-Logo](https://github.com/Kirlovon/Deno-Logo)
 
 ### Created by [netsi1964](https://twitter.com/netsi1964)
