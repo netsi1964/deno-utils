@@ -1,6 +1,7 @@
 const __dirname = Deno.cwd();
 const src = __dirname.split('src/')[1]
 
+let html = ``;
 let ts = `
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -14,15 +15,18 @@ export class RegisterIcons {
     domSanitizer: DomSanitizer
   ): void {
 `;
+let count = 0;
 for (const dirEntry of Deno.readDirSync(".")) {
   let { name } = dirEntry;
   if (name.match(/\.svg/ig)) {
-      name = name.toLowerCase().replace(/[^\dancdefghijklmnopqrstuvwxzy]/ig,'_');
+      name = name.toLowerCase().replace(/[^\dancdefghijklmnopqrstuvwxzy]/ig,'_').replace("_svg", "");
       ts += `matIconRegistry.addSvgIcon(
-      '${name.replace("_svg", "")}',
+      '${name}',
       domSanitizer.bypassSecurityTrustResourceUrl(
         '${src}/${name}'
-      )
+      );
+      html += `<mat-icon svgIcon="${name}"></mat-icon>\n`;
+      count++;
     );
 `;
   }
@@ -31,4 +35,12 @@ ts += `
   }
 }
 `
-console.log(ts);
+if (count === 0) {
+  console.log('Found no .svg files.');
+} else {
+  console.log(`Created code which adds ${count} new custom icons.`);
+  console.log('\n----- HTML --------\n');
+  console.log(html);
+  console.log('\n----- TYPESCRIPT --------\n');
+  console.log(ts);
+}
