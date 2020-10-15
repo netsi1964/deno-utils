@@ -1,5 +1,5 @@
 const __dirname = Deno.cwd();
-const src = __dirname.split("src/")[1];
+const src = __dirname.split("src/")[1] || "";
 
 let html = ``;
 let ts = `
@@ -19,12 +19,12 @@ let count = 0;
 for (const dirEntry of Deno.readDirSync(".")) {
   let { name } = dirEntry;
   if (name.match(/\.svg/gi)) {
-    name = name
+    const iconName = name
       .toLowerCase()
-      .replace(/[^\dancdefghijklmnopqrstuvwxzy]/gi, "_")
-      .replace("_svg", "");
-    ts += `matIconRegistry.addSvgIcon('${name}', domSanitizer.bypassSecurityTrustResourceUrl('${src}/${name}')`;
-    html += `<mat-icon svgIcon="${name}"></mat-icon>\n`;
+      .replace(".svg", "")
+      .replace(/[^\dancdefghijklmnopqrstuvwxzy]/gi, "_");
+    ts += `matIconRegistry.addSvgIcon('${iconName}', domSanitizer.bypassSecurityTrustResourceUrl('${src}${name}')`;
+    html += `<mat-icon svgIcon="${iconName}"></mat-icon>\n`;
     count++;
   }
 }
