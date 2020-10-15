@@ -1,5 +1,5 @@
 const __dirname = Deno.cwd();
-const src = __dirname.split('src/')[1]
+const src = __dirname.split("src/")[1];
 
 let html = ``;
 let ts = `
@@ -18,29 +18,26 @@ export class RegisterIcons {
 let count = 0;
 for (const dirEntry of Deno.readDirSync(".")) {
   let { name } = dirEntry;
-  if (name.match(/\.svg/ig)) {
-      name = name.toLowerCase().replace(/[^\dancdefghijklmnopqrstuvwxzy]/ig,'_').replace("_svg", "");
-      ts += `matIconRegistry.addSvgIcon(
-      '${name}',
-      domSanitizer.bypassSecurityTrustResourceUrl(
-        '${src}/${name}'
-      );
-      html += `<mat-icon svgIcon="${name}"></mat-icon>\n`;
-      count++;
-    );
-`;
+  if (name.match(/\.svg/gi)) {
+    name = name
+      .toLowerCase()
+      .replace(/[^\dancdefghijklmnopqrstuvwxzy]/gi, "_")
+      .replace("_svg", "");
+    ts += `matIconRegistry.addSvgIcon('${name}', domSanitizer.bypassSecurityTrustResourceUrl('${src}/${name}')`;
+    html += `<mat-icon svgIcon="${name}"></mat-icon>\n`;
+    count++;
   }
 }
 ts += `
   }
 }
-`
+`;
 if (count === 0) {
-  console.log('Found no .svg files.');
+  console.log("Found no .svg files.");
 } else {
   console.log(`Created code which adds ${count} new custom icons.`);
-  console.log('\n----- HTML --------\n');
+  console.log("\n----- HTML --------\n");
   console.log(html);
-  console.log('\n----- TYPESCRIPT --------\n');
+  console.log("\n----- TYPESCRIPT --------\n");
   console.log(ts);
 }
