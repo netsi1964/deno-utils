@@ -22,8 +22,8 @@ for (const dirEntry of Deno.readDirSync(".")) {
     const iconName = name
       .toLowerCase()
       .replace(".svg", "")
-      .replace(/[^\dancdefghijklmnopqrstuvwxzy]/gi, "_");
-    ts += `matIconRegistry.addSvgIcon('${iconName}', domSanitizer.bypassSecurityTrustResourceUrl('${src}${name}'));`;
+      .replace(/[^\dabcdefghijklmnopqrstuvwxzy]/gi, "_");
+    ts += `matIconRegistry.addSvgIcon('${iconName}', domSanitizer.bypassSecurityTrustResourceUrl('${src}/${name}'));`;
     html += `<mat-icon svgIcon="${iconName}"></mat-icon>\n`;
     count++;
   }
