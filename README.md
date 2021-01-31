@@ -10,7 +10,7 @@ You can run these scripts by entering the command like `deno run OPTIONS URL`
 
 ## CLI
 
-1. [stop-server.ts](https://github.com/netsi1964/deno-utils/blob/main/cli/stop-server.ts) `deno run --allow-run [stop-server.ts](https://github.com/netsi1964/deno-utils/blob/main/cli/stop-server.ts) --port 4200` - stops a server running on a given port on your computer
+1. [stop-server.ts](https://github.com/netsi1964/deno-utils/blob/main/cli/stop-server.ts) `deno run --allow-run https://github.com/netsi1964/deno-utils/blob/main/cli/stop-server.ts --port 4200` - stops a server running on a given port on your computer
 
 ## Reload
 
